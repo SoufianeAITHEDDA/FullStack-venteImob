@@ -65,10 +65,11 @@ services:
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
     environment:
-      - POSTGRES_DB=${POSTGRES_DB:-api}
-      # You should definitely change the password in production
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
-      - POSTGRES_USER=${POSTGRES_USER:-api-platform}
+      - POSTGRES_DB=api
+      - POSTGRES_PASSWORD=!ChangeMe!
+      - POSTGRES_USER=api-platform
+    ports:
+        - "6543:5432"
     volumes:
       - db_data:/var/lib/postgresql/data:rw
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
