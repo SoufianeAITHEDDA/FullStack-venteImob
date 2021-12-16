@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
 
         if (($open = fopen(dirname(__FILE__) . '/data/valeursfoncieres-2021-s1.csv', "r")) !== FALSE) {
             $a = 0;
-            while (($data = fgetcsv($open, 1000, "|")) !== FALSE && $a < 50000) {
+            while (($data = fgetcsv($open, 0, "|")) !== FALSE /*&& $a < 50000*/) {
                 //skip the first line
                 if ($a > 1) {
                     $array[] = $data;
@@ -37,17 +37,18 @@ class AppFixtures extends Fixture
                         $valeurFociere = (int) $data[10];
                         $surface = (int) $data[42];
                         $date = $data[8];
-                       
-                        if (strcmp($typeVente, "Vente") == 0 && $valeurFociere > 0 && $surface > 0) {
 
+                        if (strcmp($typeVente, "Vente") == 0 && $valeurFociere > 0 && $surface > 0) {
+                            $str_arr = explode("/", $date);
+                            $date = $str_arr[1] . "/" . $str_arr[0] . "/" . $str_arr[2];
                             //if this key doesn't exist
                             if (!array_key_exists($date, $listVente)) {
 
 
                                 //set date to the english format 
 
-                                $str_arr = explode("/", $date);
-                                $date = $str_arr[1] . "/" . $str_arr[0] . "/" . $str_arr[2];
+                                // $str_arr = explode("/", $date);
+                                // $date = $str_arr[1] . "/" . $str_arr[0] . "/" . $str_arr[2];
 
 
                                 $prix_moy_m² =  $valeurFociere /  $surface;
@@ -61,14 +62,13 @@ class AppFixtures extends Fixture
 
 
                                 $listVente[$date] = $vente;
-
                             } else { //if key exists
                                 $vente = $listVente[$date];
                                 $prix_moy_m² = $vente->getPrixMoyenM2();
                                 $vente->setNombreVentes($vente->getNombreVentes() + 1);
 
-                                $prix_moy_m² = ($prix_moy_m² + ($valeurFociere / $surface)) ;// $vente->getNombreVentes();
-                                
+                                $prix_moy_m² = ($prix_moy_m² + ($valeurFociere / $surface)); // $vente->getNombreVentes();
+                                $vente->setPrixMoyenM2($prix_moy_m²);
 
                                 $listVente[$date] = $vente;
                             }
