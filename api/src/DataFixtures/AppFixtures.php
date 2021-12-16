@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
                             $numDepartement = $numDepartement;
                             
                         }
-                        
+                        //var_dump(date())
                         $region = $regions[$numDepartement];
                         
                         
