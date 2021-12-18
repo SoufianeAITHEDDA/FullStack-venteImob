@@ -6,7 +6,7 @@ import { fetch } from "../../utils/dataAccess";
 import Head from "next/head";
 
 interface Props {
-  collection: PagedCollection<Ventes>;
+  collection: Ventes[];
 }
 
 const Page: NextComponentType<NextPageContext, Props, Props> = ({
@@ -18,6 +18,7 @@ const Page: NextComponentType<NextPageContext, Props, Props> = ({
         <title>Ventes List</title>
       </Head>
     </div>
+    {console.log(collection)}
     <List ventes={collection["hydra:member"]} />
   </div>
 );
@@ -25,7 +26,6 @@ const Page: NextComponentType<NextPageContext, Props, Props> = ({
 Page.getInitialProps = async () => {
   const collection = await fetch("/ventes");
   console.log(collection);
-
   return { collection };
 };
 

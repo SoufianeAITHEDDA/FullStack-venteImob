@@ -24,7 +24,7 @@ class AppFixtures extends Fixture
         $regions = $this->getRegion();
         if (($open = fopen(dirname(__FILE__) . '/data/valeursfoncieres-2021-s1.csv', "r")) !== FALSE ) {
             $a = 0;
-            while (($data = fgetcsv($open, 0, "|")) !== FALSE && $a < 1100) {
+            while (($data = fgetcsv($open, 0, "|")) !== FALSE && $a < 5000) {
                 //skip the first line
                 if ($a > 1) {
                     $array[] = $data;
