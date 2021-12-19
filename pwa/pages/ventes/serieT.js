@@ -6,13 +6,10 @@ import { fetch } from "../../utils/dataAccess";
 import Head from "next/head";
 
 
-interface Props {
-  collection: Ventes[];
-}
 
-const Page: NextComponentType<NextPageContext, Props, Props>  = ({
-  collection,
-}) => (
+function Page ({
+  collection
+}) {  return (
     <div>
       <div>
         <Head>
@@ -22,12 +19,13 @@ const Page: NextComponentType<NextPageContext, Props, Props>  = ({
       <Serie ventes ={ collection["hydra:member"] } />
     </div>
   );
+}
 
 
   Page.getInitialProps = async () => {
     const collection = await fetch("/ventes");
     console.log(collection);
-    return { collection };
+    return { collection : collection};
   };
   
   export default Page;

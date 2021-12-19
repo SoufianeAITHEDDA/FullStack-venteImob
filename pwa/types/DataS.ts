@@ -1,7 +1,7 @@
 export class DataS {
    
     constructor(
-      public month : number,
+      public date : Date,
       public prixMoyen : number,
     ) {
 
