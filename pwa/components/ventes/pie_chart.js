@@ -21,13 +21,11 @@ class DonutChart extends Component {
 
     
     handleChange(event) {
-
         //window.location.reload(false);
         let y =parseInt(event.target.value, 10)
         this.setState({ data: this.pieData(this.props, y), year:y });
         console.log("change", y)
         this.drawChart(y)
-        
         
     }
 
@@ -47,9 +45,10 @@ class DonutChart extends Component {
         //filter data by year
         let { data } = data1
         let dataYear = data.filter(d => d.date.substring(0, 4) == year);
-
+        
         //get all the regions
         let allRegions = dataYear.map(r => r.region);
+
         //remove duplicates
         let regions = [...new Set(allRegions)]
 
