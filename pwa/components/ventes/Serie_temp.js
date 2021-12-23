@@ -95,7 +95,7 @@ const drawChart = async (ventes) => {
 
 
         var y = d3.scaleLinear()
-            .domain([0, d3.max(dataSerie, function (d) { return d.prixMoyen; })])
+            .domain([0, d3.max(dataSerie, function (d) { return d.prixMoyen/1000; })])
             .range([height, 0]);
 
         svg.append("g")
@@ -117,8 +117,30 @@ const drawChart = async (ventes) => {
             .attr("stroke-width", 1.5)
             .attr("d", d3.line()
                 .x(function (d) { return x(d.date) })
-                .y(function (d) { return y(d.prixMoyen) })
+                .y(function (d) { return y(d.prixMoyen/1000) })
             )
+
+
+            svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("K€"); 
+
+
+      
+
+            svg.append("text")             
+            .attr("transform",
+                  "translate(" + (width/2) + " ," + 
+                                 (height + margin.top + 5) + ")")
+            .style("text-anchor", "middle")
+            .text("Date");
+
+
+        
 
 
 

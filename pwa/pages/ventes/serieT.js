@@ -35,7 +35,6 @@ function Page ({
 
   Page.getInitialProps = async () => {
     const collection = await fetch("/ventes");
-    //console.log(collection);
     return { collection : collection};
   };
   
