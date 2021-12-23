@@ -8,5 +8,5 @@ export interface PagedCollection<T> {
   "hydra:member"?: T[];
   "hydra:nextPage"?: string;
   "hydra:search"?: object;
-  "hydra:totalItems"?: number;
+  "hydra:totalItems"?: number
 }

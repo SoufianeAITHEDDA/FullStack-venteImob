@@ -75,7 +75,7 @@ const drawChart = async (ventes) => {
             dataSerie.push(s);
         });*/
 
-        console.log(dataSerie);
+        //console.log(dataSerie);
 
         var svg = d3.select("#my_dataviz")
             .append("svg")
