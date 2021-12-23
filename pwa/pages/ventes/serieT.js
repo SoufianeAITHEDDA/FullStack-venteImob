@@ -27,8 +27,6 @@ function Page ({
       </div>
       <Serie ventes ={ collection["hydra:member"] } />
       <DonutChart data={collection["hydra:member"]}  />
-
-      {/* <DonutChart data={donutData}  /> */}
     </div>
   );
 }

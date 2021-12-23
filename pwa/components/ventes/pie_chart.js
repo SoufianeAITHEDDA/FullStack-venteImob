@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
-const colors = ['#8ce8ad', '#57e188', '#34c768', '#2db757', '#27acaa', '#42c9c2', '#60e6e1', '#93f0e6', '#87d3f2', '#4ebeeb', '#35a4e8', '#188ce5', '#542ea5', '#724bc3', '#9c82d4', '#c981b2', '#b14891', '#ff6d00', '#ff810a', '#ff9831', '#ffb46a', '#ff9a91', '#ff736a', '#f95d54', '#ff4136', '#c4c4cd'];
+const colors = ['#0F288E', '#D4F20F', '#758E0F', '#57e188', '#FF5E00', '#F20F0F', '#00FF11', '#FF00DE', '#87d3f2', '#4ebeeb', '#35a4e8', '#188ce5', '#542ea5', '#724bc3', '#9c82d4', '#c981b2', '#b14891', '#ff6d00', '#ff810a', '#ff9831', '#ffb46a', '#ff9a91', '#ff736a', '#f95d54', '#ff4136', '#c4c4cd'];
 import { useState } from 'react';
 import { slice } from 'lodash';
 
@@ -101,11 +101,7 @@ class DonutChart extends Component {
         //let data = this.pieData(data, this.state.year)
 
         const svgContainer = d3.select(this.chRef.current).node();
-        // const width = svgContainer.getBoundingClientRect().width;
-        // const height = width;
-        // const margin = 15;
-        // let radius = Math.min(width, height) / 2 - margin;
-        //______________________
+
         const width = 960,
             height = 450,
             radius = Math.min(width, height) / 2;
@@ -198,7 +194,7 @@ class DonutChart extends Component {
             .attr("transform", d => `translate(${legendPosition2.centroid(d)})}`)
             .attr('x2', d => legendPosition2.centroid(d)[0])
             .attr('y2', d => legendPosition2.centroid(d)[1] - 5)
-            .style('stroke-width', 5)
+            .style('stroke-width', 4)
 
 
     }
