@@ -17,7 +17,6 @@ const margin = { top: 40, right: 80, bottom: 60, left: 50 },
     color = "OrangeRed";
 
 const dataE = [];
-
 var dataSerie = [];
 
 
@@ -37,25 +36,22 @@ const drawChart = async (ventes) => {
 
 
         d3.select("#the_SVG_ID").remove();
-
-        const s = new DataS(new Date(ventes[i].date), ventes[i].prixMoyenM2)
-        dataSerie.push(s);
-
-
-
-        /* var element = {
-             date: 0,
-             moyenne_total: 0,
-             total: 1,
+     
+        var element = {
+             date : 0  ,
+             moyenne_total : 0,
+             total : 1,
          };
  
          var exist = false;
-         var dt = new Date(ventes[i].date);
-         element.date = dt.getMonth() + 1;
+         element.date = new Date(ventes[i].date);
+
          element.moyenne_total = ventes[i].prixMoyenM2
+
+
  
          dataE.map(e => {
-             if (e.date == element.date) {
+             if (e.date.getTime() == element.date.getTime()) {
                  e.total = e.total + 1;
                  e.moyenne_total = e.moyenne_total + element.moyenne_total;
                  exist = true;
@@ -66,16 +62,16 @@ const drawChart = async (ventes) => {
              dataE.push(element)
          }
  
-     }*/
+     }
 
-
-        /*dataE.map(e => {
+     console.log(dataE)
+        dataE.map(e => {
             e.moyenne_total = e.moyenne_total / e.total;
             const s = new DataS(e.date, e.moyenne_total)
             dataSerie.push(s);
-        });*/
+        });
 
-        //console.log(dataSerie);
+        console.log(dataSerie);
 
         var svg = d3.select("#my_dataviz")
             .append("svg")
@@ -107,8 +103,7 @@ const drawChart = async (ventes) => {
 
 
         dataSerie.sort(function (a, b) {
-
-            return new Date(b.date) - new Date(a.date);
+            return new Date(a.date) - new Date(b.date);
         });
 
         svg.append("path")
@@ -125,11 +120,10 @@ const drawChart = async (ventes) => {
                 .y(function (d) { return y(d.prixMoyen) })
             )
 
-        await sleep(15)
 
 
     }
-}
+
 
 
 
@@ -146,9 +140,6 @@ export const Serie = ({ ventes }) => {
     return (
         <div id="chart">
             <div id="my_dataviz">
-
-
-
 
             </div>
         </div>
