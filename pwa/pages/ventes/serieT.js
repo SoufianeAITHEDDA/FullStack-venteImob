@@ -16,16 +16,18 @@ const donutData = [
   {name: "30-34", value: 22},
   {name: "35-39", value: 18}];
 
-function Page ({
-  collection
-}) {  return (
+function Page ( { collection , collectionSerie }
+  
+  ) {  return (
     <div>
       <div>
         <Head>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+
           <title>test</title>
         </Head>
       </div>
-      <Serie ventes ={ collection["hydra:member"] } />
+      <Serie ventes ={ collectionSerie["hydra:member"] } />
       <DonutChart data={collection["hydra:member"]}  />
     </div>
   );
@@ -33,7 +35,11 @@ function Page ({
 
   Page.getInitialProps = async () => {
     const collection = await fetch("/ventes");
-    return { collection : collection};
-  };
+    const collectionSerie = await fetch("/ventes/months");
+    return { collection : collection,
+             collectionSerie : collectionSerie}
+    }
+              
+
   
   export default Page;

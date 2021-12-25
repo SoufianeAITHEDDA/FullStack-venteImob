@@ -5,7 +5,6 @@ import { ErrorMessage, Formik } from "formik";
 import { fetch } from "../../utils/dataAccess";
 import { Ventes } from "../../types/Ventes";
 import { DataS } from "../../types/DataS"
-import * as d3 from "d3";
 import React from "react";
 
 
@@ -30,42 +29,11 @@ const sleep = (milliseconds) => {
 
 const drawChart = async (ventes) => {
 
+    d3.select("#the_SVG_ID").remove();
 
-    for (var i = 0; i < ventes.length; i++) {
-
-
-        d3.select("#the_SVG_ID").remove();
-
-        var element = [];
-
-
-        var exist = false;
-        element.date = new Date(ventes[i].date);
-        element.moyenne_total = ventes[i].prixMoyenM2
-
-
-        dataE.map(e => {
-            if (e.date.getFullYear() == element.date.getFullYear() && e.date.getMonth() == element.date.getMonth()) {
-                e.total = e.total + 1;
-                e.moyenne_total = e.moyenne_total + element.moyenne_total;
-                exist = true;
-            }
-        }
-        )
-        if (exist == false) {
-            element.total = 1;
-            console.log(element.date.getFullYear() + '-0' + element.date.getMonth() + '-01');
-            element.date = new Date(element.date.getFullYear(), element.date.getMonth(), 1)
-
-            dataE.push(element)
-        }
-
-    }
-
-    console.log(dataE)
-    dataE.map(e => {
-        e.moyenne_total = e.moyenne_total / e.total;
-        const s = new DataS(e.date, e.moyenne_total)
+    ventes.map(e => {
+        var d = new Date(e.year, e.month , "01")
+        const s = new DataS(d , e.moy)
         dataSerie.push(s);
     });
 

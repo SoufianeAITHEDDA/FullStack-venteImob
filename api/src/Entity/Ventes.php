@@ -5,9 +5,17 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VentesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Controller\getbymonth;
 
 #[ORM\Entity(repositoryClass: VentesRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    'get',
+    'getbymonths' => [
+        'method' => 'GET',
+        'path' => '/ventes/months',
+        'controller' => getbymonth::class,
+    ],
+])]
 class Ventes
 {
     #[ORM\Id]

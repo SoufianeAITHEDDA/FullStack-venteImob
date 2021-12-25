@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as d3 from 'd3';
 const colors = ['#0F288E', '#D4F20F', '#758E0F', '#57e188', '#FF5E00', '#F20F0F', '#00FF11', '#FF00DE', '#87d3f2', '#4ebeeb', '#35a4e8', '#188ce5', '#542ea5', '#724bc3', '#9c82d4', '#c981b2', '#b14891', '#ff6d00', '#ff810a', '#ff9831', '#ffb46a', '#ff9a91', '#ff736a', '#f95d54', '#ff4136', '#c4c4cd'];
 import { useState } from 'react';
 import { slice } from 'lodash';
