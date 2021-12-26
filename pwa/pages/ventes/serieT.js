@@ -1,3 +1,4 @@
+
 import { NextComponentType, NextPageContext } from "next";
 import { Serie } from "../../components/ventes/Serie_temp";
 import { PagedCollection } from "../../types/Collection";
@@ -16,7 +17,7 @@ const donutData = [
   {name: "30-34", value: 22},
   {name: "35-39", value: 18}];
 
-function Page ( { collection , collectionSerie }
+function Page ( { collection , collectionSerie }
   
   ) {  return (
     <div>

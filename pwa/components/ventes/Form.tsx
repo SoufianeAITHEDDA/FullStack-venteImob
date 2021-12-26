@@ -41,7 +41,12 @@ export const Form: FunctionComponent<Props> = ({ ventes }) => {
             await fetch(isCreation ? "/ventes" : values["@id"], {
               method: isCreation ? "POST" : "PUT",
               body: JSON.stringify(values),
-            });
+            }
+            
+          )
+
+          console.log(values) 
+          ;
             setStatus({
               isValid: true,
               msg: `Element ${isCreation ? "created" : "updated"}.`,
@@ -75,8 +80,7 @@ export const Form: FunctionComponent<Props> = ({ ventes }) => {
               <input
                 name="date"
                 id="_date"
-                value={values.date ?? ""}
-                type="text"
+                type="date"
                 placeholder=""
                 className={`form-control${
                   errors.date && touched.date ? " is-invalid" : ""

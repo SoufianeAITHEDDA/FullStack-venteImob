@@ -43,6 +43,9 @@ class VentesRepository extends ServiceEntityRepository
 
         );*/
 
+
+       
+    
         return $this->createQueryBuilder('a')
             ->select("to_char(a.date, 'YYYY') AS year , to_char(a.date ,'MM') AS month , AVG(a.prix_moyen_m2) as moy")
             ->groupBy('year,month')
@@ -50,10 +53,55 @@ class VentesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
+        }
+
 
         //return $query->getResult();
 
+    
+
+
+
+        public function findNbVentes(string $type,string $date_debut, string $date_fin)
+        
+        {
+
+            switch ($type) {
+                case "year":
+                    $query =  $this->createQueryBuilder('a')
+                    ->select("to_char(a.date, 'YYYY') AS year , sum(a.nombre_ventes) as nombre_ventes")
+                    ->where("a.date BETWEEN '$date_debut' AND  '$date_fin' ")
+                    ->groupBy('year')
+                    ->orderBy('year', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+                    break;
+                case "month":
+                    $query =  $this->createQueryBuilder('a')
+                    ->select("to_char(a.date, 'YYYY') AS year , to_char(a.date ,'MM') AS month , sum(a.nombre_ventes) as nombre_ventes")
+                    ->where("a.date BETWEEN '$date_debut' AND  '$date_fin' ")
+                    ->groupBy('year,month')
+                    ->orderBy('month', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+                    break;
+                case "day":
+                    $query =  $this->createQueryBuilder('a')
+                    ->select("a.date as date , a.nombre_ventes as nombre_ventes")
+                    ->where("a.date BETWEEN '$date_debut' AND  '$date_fin' ")
+                    ->orderBy('date', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+                    break;
+                }
+
+
+        return $query;
     }
+
+
+
+
     /*
     public function findOneBySomeField($value): ?Ventes
     {
@@ -65,4 +113,5 @@ class VentesRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

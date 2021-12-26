@@ -15,8 +15,6 @@ const margin = { top: 40, right: 80, bottom: 60, left: 50 },
     height = 280 - margin.top - margin.bottom,
     color = "OrangeRed";
 
-const dataE = [];
-var dataSerie = [];
 
 
 
@@ -26,13 +24,15 @@ const sleep = (milliseconds) => {
 
 
 
-
 const drawChart = async (ventes) => {
+
+    var dataSerie = [];
+
 
     d3.select("#the_SVG_ID").remove();
 
     ventes.map(e => {
-        var d = new Date(e.year, e.month , "01")
+        var d = new Date(e.year, e.month-1 , "01")
         const s = new DataS(d , e.moy)
         dataSerie.push(s);
     });
@@ -188,11 +188,13 @@ const drawChart = async (ventes) => {
 export const Serie = ({ ventes }) => {
     const [error, setError] = useState(null);
     const router = useRouter();
+    const [data , setdata] = useState(ventes);
 
 
-    React.useEffect(() => {
-        drawChart(ventes);
-    }, [ventes]);
+
+    React.useEffect(async () => {
+        drawChart(data);
+    }, [data]);
 
     return (
         <div id="chart">
@@ -200,8 +202,6 @@ export const Serie = ({ ventes }) => {
 
             </div>
         </div>
-
-
 
     )
 };
