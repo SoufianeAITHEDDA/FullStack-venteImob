@@ -25,8 +25,6 @@ class findGroupByP extends AbstractController
     $date_debut = $request->query->get('date_debut');
     $date_fin = $request->query->get('date_fin');
 
-    echo $type;
-    
 
     return $this->ventesRepository->findNbVentes($type,$date_debut,$date_fin);
     }
