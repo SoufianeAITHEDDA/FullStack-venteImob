@@ -25,7 +25,7 @@ const sleep = (milliseconds) => {
 
 
 const drawChart = async (ventes) => {
-
+    console.log("ventes lin"+ventes)
     var dataSerie = [];
 
 
@@ -35,9 +35,10 @@ const drawChart = async (ventes) => {
         var d = new Date(e.year, e.month-1 , "01")
         const s = new DataS(d , e.moy)
         dataSerie.push(s);
+        console.log(e.moy);
     });
 
-    console.log(dataSerie);
+    console.log("data Serie"+dataSerie);
 
     var svg = d3.select("#my_dataviz")
         .append("svg")
@@ -50,7 +51,7 @@ const drawChart = async (ventes) => {
 
 
     var div = d3.select("#my_dataviz")
-        .append("div") // declare the tooltip div 
+        .append("div") // declare the tooltip div
         .attr("class", "tooltipburndown")
         .style("position", "absolute")
         .style("text-align", "center")
