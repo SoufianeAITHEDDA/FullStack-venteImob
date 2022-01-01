@@ -10,9 +10,8 @@ import React from "react";
 
 
 
-const drawChart =  (bars) => {
-
-
+const drawChart =  (data,test) => {
+ console.log("dataaaa........;"+test)
 
 
 }
@@ -25,7 +24,7 @@ export const BarChart = ({ test , bars , datatest }) => {
   const dataBars = [];
   console.log("bars ///////////"+bars);
   bars.map(e => {
-    console.log(e);
+    console.log("hdhhdh",e);
     //var d = new Date(e.year, e.month-1 , "01")
     //const s = new DataS(d , e.moy)
     //dataBars.push(s);
@@ -38,7 +37,7 @@ export const BarChart = ({ test , bars , datatest }) => {
 
 
   React.useEffect(async () => {
-    drawChart(data);
+    drawChart(data,test);
   }, [data]);
 
 
