@@ -24,21 +24,34 @@ const sleep = (milliseconds) => {
 
 
 
+
+
+
+
 const drawChart = async (ventes) => {
-    console.log("ventes lin"+ventes)
+    console.log("ventes lin" + ventes)
     var dataSerie = [];
+
+    /* let dashOffset = slider({
+         min: 0, 
+         max: path.childNodes[0].getTotalLength(), 
+         step: 1, 
+         value: 0, 
+         title: "Dash Offset",
+         description: "How far to 'pull' the graph to the left"
+       })*/
 
 
     d3.select("#the_SVG_ID").remove();
 
     ventes.map(e => {
-        var d = new Date(e.year, e.month-1 , "01")
-        const s = new DataS(d , e.moy)
+        var d = new Date(e.year, e.month - 1, "01")
+        const s = new DataS(d, e.moy)
         dataSerie.push(s);
         console.log(e.moy);
     });
 
-    console.log("data Serie"+dataSerie);
+    console.log("data Serie" + dataSerie);
 
     var svg = d3.select("#my_dataviz")
         .append("svg")
@@ -47,7 +60,8 @@ const drawChart = async (ventes) => {
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+            "translate(" + margin.left + "," + margin.top + ")")
+        .attr("viewBox", [0, 0, width, height]);
 
 
     var div = d3.select("#my_dataviz")
@@ -87,13 +101,14 @@ const drawChart = async (ventes) => {
         return new Date(a.date) - new Date(b.date);
     });
 
-    svg.append("path")
+    var path = svg.append("path")
         .datum(dataSerie)
         .attr("stroke-width", 1.5)
         .attr("stroke-linecap", "round")
         .attr("stroke-linejoin", "round")
         .attr("stroke-opacity", 1)
         .attr("fill", "none")
+        .attr("stroke-width", 2)
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
         .attr("d", d3.line()
@@ -111,6 +126,7 @@ const drawChart = async (ventes) => {
         cursorX = e.pageX;
         cursorY = e.pageY;
     }
+
 
 
 
@@ -135,7 +151,7 @@ const drawChart = async (ventes) => {
         // Tooltip stuff after this
         .on("mouseover", function (event, d) {
             d3.select(".tooltipburndown").transition().duration(200).style("opacity", .9);
-            d3.select(".tooltipburndown").html("mois : " + (d.date.getMonth() + 1) + " <BR>" + "annee: " + d.date.getFullYear() + " <BR>" + "prix moyen: " + "<b>" + d.prixMoyen + "€")
+            d3.select(".tooltipburndown").html("mois : " + (d.date.getMonth() + 1) + " <BR>" + "annee: " + d.date.getFullYear() + " <BR>" + "prix moyen: " + "<b>" + Number(d.prixMoyen).toFixed(2) + "€")
                 .style("left", cursorX - 70 + "px")
                 .style("top", cursorY + 20 + "px")
                 .style("height", "fit-content")
@@ -175,6 +191,36 @@ const drawChart = async (ventes) => {
         .style("text-anchor", "middle")
         .text("Date");
 
+    const length = path.node().getTotalLength();
+
+
+    var text = svg.append("text")
+        .attr("x", margin.left)
+        .attr("y", height - 10)
+        .attr("font-family", "monospace");
+
+    function repeat() {
+        // Animate the path by setting the initial offset and dasharray and then transition the offset to 0
+        path.attr("stroke-dasharray", length + " " + length)
+            .attr("stroke-dashoffset", length)
+            .transition()
+            .ease(d3.easeLinear)
+            .attr("stroke-dashoffset", 0)
+            .duration(1000)
+
+        // Animate the dashoffset changes 
+        text.transition()
+            .duration(1000)
+            .tween("text", function (t) {
+                const i = d3.interpolateRound(0, length);
+                return function (t) {
+
+                };
+            });
+    };
+
+    // Animate the graph for the first time
+    repeat();
 
 
 
@@ -189,8 +235,7 @@ const drawChart = async (ventes) => {
 export const Serie = ({ ventes }) => {
     const [error, setError] = useState(null);
     const router = useRouter();
-    const [data , setdata] = useState(ventes);
-
+    const [data, setdata] = useState(ventes);
 
 
     React.useEffect(async () => {
@@ -200,7 +245,6 @@ export const Serie = ({ ventes }) => {
     return (
         <div id="chart">
             <div id="my_dataviz">
-
             </div>
         </div>
 
