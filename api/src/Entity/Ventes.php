@@ -5,9 +5,56 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\VentesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Controller\getbymonth;
+use App\Controller\findGroupByP;
+
+
 
 #[ORM\Entity(repositoryClass: VentesRepository::class)]
-#[ApiResource]
+#[ApiResource(collectionOperations: [
+    'get',
+    'getbymonths' => [
+        'method' => 'GET',
+        'path' => '/ventes/months',
+        'controller' => getbymonth::class
+    ],
+    'findGroupeByP' => [
+        'method' => 'GET',
+        'path' => '/ventes/find',
+        'controller' => findGroupByP::class,
+        'openapi_context' => [
+            'parameters' =>
+            [
+                [
+                    'name' => 'type',
+                    "in" => "query",
+                    "description" => "Description goes here",
+                    "schema" => [
+                        "type" => "string"
+                    ]
+                ],
+                [
+                    'name' => 'date_debut',
+                    "in" => "query",
+                    "description" => "Description goes here",
+                    "schema" => [
+                        "type" => "string"
+                    ]
+                ],
+                [
+                    'name' => 'date_fin',
+                    "in" => "query",
+                    "description" => "Description goes here",
+                    "schema" => [
+                        "type" => "string"
+                    ]
+                ]
+            ]
+        ]
+    ]
+
+])]
+
 class Ventes
 {
     #[ORM\Id]

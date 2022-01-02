@@ -22,19 +22,86 @@ class VentesRepository extends ServiceEntityRepository
     // /**
     //  * @return Ventes[] Returns an array of Ventes objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findGroupeByDate()
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
+
+
+        $entityManager = $this->getEntityManager();
+
+        /*$result = $entityManager->createQueryBuilder('Ventes')
+        ->select(' YEAR(Ventes.date) AS gByear , MONTH(Ventes.date) AS gBmonth , AVG(Ventes.prix_moyen_m2)')
+        ->groupBy('gByear,gBmonth')
+        ->getQuery()
+        ->getResult(); */
+
+
+
+       /* $query = $entityManager->createQuery(
+            'SELECT  to_char(p.timestamp, "YYYY")  as annee, p.prix_moyen_m2 as moy
+            FROM App\Entity\Ventes p'
+
+        );*/
+
+
+
+
+        return $this->createQueryBuilder('a')
+            ->select("to_char(a.date, 'YYYY') AS year , to_char(a.date ,'MM') AS month , AVG(a.prix_moyen_m2) as moy")
+            ->groupBy('year,month')
+            ->orderBy('month', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+
+        }
+
+
+        //return $query->getResult();
+
+
+
+
+
+        public function findNbVentes(string $type,string $date_debut, string $date_fin)
+
+        {
+
+            switch ($type) {
+                case "year":
+                    $query =  $this->createQueryBuilder('a')
+                        ->select("to_char(a.date, 'YYYY') AS year , sum(a.nombre_ventes) as nombre_ventes")
+                        ->where("a.date BETWEEN '$date_debut' AND  '$date_fin' ")
+                        ->groupBy('year')
+                        ->orderBy('year', 'ASC')
+                        ->getQuery()
+                        ->getResult();
+                    break;
+                case "month":
+                    $query =  $this->createQueryBuilder('a')
+                        ->select("to_char(a.date, 'YYYY') AS year , to_char(a.date ,'MM') AS month , sum(a.nombre_ventes) as nombre_ventes")
+                        ->where("a.date BETWEEN '$date_debut' AND  '$date_fin' ")
+                        ->groupBy('year,month')
+                        ->orderBy('month', 'ASC')
+                        ->getQuery()
+                        ->getResult();
+                    break;
+                case "day":
+                    $query =  $this->createQueryBuilder('a')
+                        ->select("a.date AS date , sum(a.nombre_ventes) AS nombre_ventes")
+                        ->where("a.date BETWEEN '$date_debut' AND  '$date_fin' ")
+                        ->groupBy('date')
+                        ->orderBy('date', 'ASC')
+                        ->getQuery()
+                        ->getResult();
+                    break;
+            }
+
+
+        return $query;
     }
-    */
+
+
+
 
     /*
     public function findOneBySomeField($value): ?Ventes
@@ -47,4 +114,5 @@ class VentesRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

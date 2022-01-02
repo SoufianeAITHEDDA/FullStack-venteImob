@@ -17,7 +17,7 @@ class GreetingsTest extends ApiTestCase
         $this->assertJsonContains([
             '@context' => '/contexts/Greeting',
             '@type' => 'Greeting',
-            'name' => 'Kévin',
+            '@type' => "hydra:Collection",
         ]);
     }
 }
