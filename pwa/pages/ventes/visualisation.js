@@ -49,7 +49,7 @@ function Page ( { collection , collectionSerie, collectionbars }
 
 
   return (
-    <div>
+    <div >
       <div>
         <Head>
         <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -58,15 +58,10 @@ function Page ( { collection , collectionSerie, collectionbars }
         </Head>
       </div>
 
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
+        <div class="container-fluid"  >
 
-          <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav me-auto">
+            <ul class="nav navbar-nav flex-fill justify-content-center">
               <li class="nav-item">
                 <a class="nav-link active" href="#serie">Série Temporelle
                   <span class="visually-hidden">(current)</span>
@@ -80,35 +75,37 @@ function Page ( { collection , collectionSerie, collectionbars }
               </li>
             </ul>
           </div>
-        </div>
+
       </nav>
 
-      <div className="container" style={{'margin-top': '20px'}} > 
-        <Serie ventes ={ collectionSerie["hydra:member"] }/>
-        <DonutChart data={collection["hydra:member"]}  />
-        
+      <div className="container" style={{'margin-top': '60px' , 'text-align': 'center' }} >
+        <div id ="serie">
+          <h1>Prix moyen du m² : </h1>
+          <Serie ventes ={ collectionSerie["hydra:member"] } />
+        </div>
+        <div id ="piechart">
+          <DonutChart data={collection["hydra:member"]}  />
+        </div>
 
-        <div>
-          <select className="form-select bg-dark" onChange={e => handleChangeYear(e.target.value)}  >
-            <option value="day">Day</option>
-            <option value="month" selected="true" >Month</option>
-            <option value="year" >Year</option>
-          </select>
-          <input className="form-control bg-secondary" onChange={e => handleChangeDebut(e.target.value)} type="date" id="start" name="trip-start"/>
-          <input className="form-control bg-secondary" type="date" onChange={e => handleChangeFin(e.target.value)} id="end" name="trip-start"/>
-        </div>
-        <div class="row" style={{'margin-top': '20px'}}>
-          <div className="col-6" style={{'margin-top': '120px'}}>
-              <h4> type date : {type}</h4>
-              <h4> date debut : {debut}</h4>
-              <h4> date fin : {fin}</h4>
+        <div id ="barchart">
+          <div>
+            <h1>Nombres de ventes par {type} : </h1>
+            <select className="form-select " onChange={e => handleChangeYear(e.target.value)}  >
+              <option value="day">Day</option>
+              <option value="month" selected="true" >Month</option>
+              <option value="year" >Year</option>
+            </select>
+            <input className="form-control " onChange={e => handleChangeDebut(e.target.value)} type="date" id="start" name="trip-start"/>
+            <input className="form-control " type="date" onChange={e => handleChangeFin(e.target.value)} id="end" name="trip-start"/>
           </div>
-          <div className= "col-6"><BarChart bars={data} test={type}/></div>
-          
-          
+
+          <BarChart bars={data} test={type}/>
         </div>
+
+
+
       </div>
-      
+
     </div>
   );
 }

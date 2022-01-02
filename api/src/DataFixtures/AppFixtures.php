@@ -17,79 +17,86 @@ class AppFixtures extends Fixture
 
         //set php memory limit
         ini_set('memory_limit', '18024M');
- 
+
         //create an empty list of Ventes
         $listVente = array();
         //all french' regions
         $regions = $this->getRegion();
-        if (($open = fopen(dirname(__FILE__) . '/data/valeursfoncieres-2021-s1.csv', "r")) !== FALSE ) {
-            $a = 0;
-            while (($data = fgetcsv($open, 0, "|")) !== FALSE && $a < 500000) {
-                //skip the first line
-                if ($a > 1) {
-                    $array[] = $data;
+        $files = [
+            'valeursfoncieres-2021-s1.csv', 'valeursfoncieres-2020.csv',
+            'valeursfoncieres-2019.txt', 'valeursfoncieres-2018.txt',
+            'valeursfoncieres-2017.txt'
+        ];
 
-                    //if type = aprtement or maison
-                    $type = $data[36];
-                    if (strcmp($type, "Maison") == 0 || strcmp($type, "Appartement") == 0) {
+        foreach ($files as $file) {
+            if (($open = fopen(dirname(__FILE__) . '/data/'.$file, "r")) !== FALSE) {
+                $a = 0;
+                while (($data = fgetcsv($open, 0, "|")) !== FALSE && $a < 500000) {
+                    //skip the first line
+                    if ($a > 1) {
+                        $array[] = $data;
 
-                        //if it's a "Vente"
-                        $typeVente = $data[9];
-                        $valeurFociere = (int) $data[10];
-                        $surface = (int) $data[42];
-                        $date = $data[8];
-                        $numDepartement = $data[18];
-                        
-                        if(strcmp($numDepartement[0], "0") == 0){
-                            $numDepartement = $numDepartement[1] ; 
-                            $numDepartement = $numDepartement;
-                            
-                        }
-                        //var_dump(date())
-                        $region = $regions[$numDepartement];
-                        
-                        
+                        //if type = aprtement or maison
+                        $type = $data[36];
+                        if (strcmp($type, "Maison") == 0 || strcmp($type, "Appartement") == 0) {
 
-                        if (strcmp($typeVente, "Vente") == 0 && $valeurFociere > 0 && $surface > 0) {
-                            $str_arr = explode("/", $date);
-                            $date = $str_arr[1] . "/" . $str_arr[0] . "/" . $str_arr[2];
-                            //if this key doesn't exist
-                            $key = $date."_".$region;
-                            if (!array_key_exists($key, $listVente)) {
-                                //set date to the english format 
+                            //if it's a "Vente"
+                            $typeVente = $data[9];
+                            $valeurFociere = (int) $data[10];
+                            $surface = (int) $data[42];
+                            $date = $data[8];
+                            $numDepartement = $data[18];
 
-                                // $str_arr = explode("/", $date);
-                                // $date = $str_arr[1] . "/" . $str_arr[0] . "/" . $str_arr[2];
-
-                                
-                                $prix_moy_m² =  $valeurFociere /  $surface;
+                            if (strcmp($numDepartement[0], "0") == 0) {
+                                $numDepartement = $numDepartement[1];
+                                $numDepartement = $numDepartement;
+                            }
+                            //var_dump(date())
+                            $region = $regions[$numDepartement];
 
 
-                                $vente = new Ventes();
-                                $vente->setDate(new DateTime($date))
-                                    ->setPrixMoyenM2($prix_moy_m²)
-                                    ->setNombreVentes(1)
-                                    ->setRegion($region);
+
+                            if (strcmp($typeVente, "Vente") == 0 && $valeurFociere > 0 && $surface > 0) {
+                                $str_arr = explode("/", $date);
+                                $date = $str_arr[1] . "/" . $str_arr[0] . "/" . $str_arr[2];
+                                //if this key doesn't exist
+                                $key = $date . "_" . $region;
+                                if (!array_key_exists($key, $listVente)) {
+                                    //set date to the english format
+
+                                    // $str_arr = explode("/", $date);
+                                    // $date = $str_arr[1] . "/" . $str_arr[0] . "/" . $str_arr[2];
 
 
-                                $listVente[$key] = $vente;
-                            } else { //if key exists
-                                $vente = $listVente[$key];
-                                $prix_moy_m² = $vente->getPrixMoyenM2();
-                                $vente->setNombreVentes($vente->getNombreVentes() + 1);
+                                    $prix_moy_m² =  $valeurFociere /  $surface;
 
-                                $prix_moy_m² = ($prix_moy_m² + ($valeurFociere / $surface)); // $vente->getNombreVentes();
-                                $vente->setPrixMoyenM2($prix_moy_m²);
 
-                                $listVente[$key] = $vente;
+                                    $vente = new Ventes();
+                                    $vente->setDate(new DateTime($date))
+                                        ->setPrixMoyenM2($prix_moy_m²)
+                                        ->setNombreVentes(1)
+                                        ->setRegion($region);
+
+
+                                    $listVente[$key] = $vente;
+                                } else { //if key exists
+                                    $vente = $listVente[$key];
+                                    $prix_moy_m² = $vente->getPrixMoyenM2();
+                                    $vente->setNombreVentes($vente->getNombreVentes() + 1);
+
+                                    $prix_moy_m² = ($prix_moy_m² + ($valeurFociere / $surface)); // $vente->getNombreVentes();
+                                    $vente->setPrixMoyenM2($prix_moy_m²);
+
+                                    $listVente[$key] = $vente;
+                                }
                             }
                         }
                     }
+                    $a++;
                 }
-                $a++;
-            }
 
-            fclose($open);
+                fclose($open);
+            }
         }
         // $product = new Product();
         // $manager->persist($product);
@@ -104,28 +111,24 @@ class AppFixtures extends Fixture
     }
 
 
- //departement => region
- public function getRegion(): array{
+    //departement => region
+    public function getRegion(): array
+    {
 
-    $regions = array();
-    if (($open = fopen(dirname(__FILE__) . '/data/departements-region.csv', "r")) !== FALSE ) {
-        
-        while (($data = fgetcsv($open, 0, ",")) !== FALSE ) {
-            
+        $regions = array();
+        if (($open = fopen(dirname(__FILE__) . '/data/departements-region.csv', "r")) !== FALSE) {
+
+            while (($data = fgetcsv($open, 0, ",")) !== FALSE) {
+
                 $array[] = $data;
                 $key = $data[0];
                 $regions[$key] = $data[2];
+            }
+            fclose($open);
         }
-        fclose($open);
+
+
+
+        return $regions;
     }
-
-
-
-return $regions;
-        
-}
-
-
-   
-    
 }

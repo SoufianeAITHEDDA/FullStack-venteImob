@@ -24,7 +24,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/ventes/serieT.js", "components/ventes/Serie_temp.js", "components/ventes/Serie_temp.js", "components/ventes/Serie_temp.js"  ],
+,
+    "pages/ventes/visualisation.js", "components/ventes/Serie_temp.js", "components/ventes/Serie_temp.js", "components/ventes/Serie_temp.js"  ],
   "exclude": [
     "node_modules"
   ]

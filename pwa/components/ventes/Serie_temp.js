@@ -33,10 +33,10 @@ const drawChart = async (ventes) => {
     var dataSerie = [];
 
     /* let dashOffset = slider({
-         min: 0, 
-         max: path.childNodes[0].getTotalLength(), 
-         step: 1, 
-         value: 0, 
+         min: 0,
+         max: path.childNodes[0].getTotalLength(),
+         step: 1,
+         value: 0,
          title: "Dash Offset",
          description: "How far to 'pull' the graph to the left"
        })*/
@@ -208,7 +208,7 @@ const drawChart = async (ventes) => {
             .attr("stroke-dashoffset", 0)
             .duration(1000)
 
-        // Animate the dashoffset changes 
+        // Animate the dashoffset changes
         text.transition()
             .duration(1000)
             .tween("text", function (t) {
@@ -243,7 +243,8 @@ export const Serie = ({ ventes }) => {
     }, [data]);
 
     return (
-        <div id="chart">
+
+        <div >
             <div id="my_dataviz">
             </div>
         </div>

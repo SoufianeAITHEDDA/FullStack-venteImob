@@ -15,23 +15,23 @@ class DonutChart extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
 
-       
+
     }
 
-    
+
     handleChange(event) {
         //window.location.reload(false);
         let y =parseInt(event.target.value, 10)
         this.setState({ data: this.pieData(this.props, y), year:y });
         console.log("change", y)
         this.drawChart(y)
-        
+
     }
 
 
     // Chart load after component Mount
     componentDidMount() {
-        console.log("Mount ",this.state) 
+        console.log("Mount ",this.state)
         this.drawChart(2021)
 
     }
@@ -44,7 +44,7 @@ class DonutChart extends Component {
         //filter data by year
         let { data } = data1
         let dataYear = data.filter(d => d.date.substring(0, 4) == year);
-        
+
         //get all the regions
         let allRegions = dataYear.map(r => r.region);
 
@@ -70,7 +70,7 @@ class DonutChart extends Component {
         finalData = finalData.map(d => {
             return { value: Math.round(d.value * 100 / total), name: d.name }
         })
-        
+
         //limit to 8 greatest values
         const limit = 8
         if(regions.length > limit){
@@ -89,9 +89,9 @@ class DonutChart extends Component {
 
 
 
-    // DrawChart 
+    // DrawChart
     drawChart(y) {
-        
+
         d3.select("#d3-donutChart").remove();
        let data = this.pieData(this.props, y);
         console.log(this.state.year," draww chart", data)
@@ -126,7 +126,7 @@ class DonutChart extends Component {
         let data_ready = pie(data)
 
 
-        // Donut partition  
+        // Donut partition
         svg
             .selectAll('whatever')
             .data(data_ready)
@@ -143,7 +143,7 @@ class DonutChart extends Component {
 
 
 
-        // Legend group and legend name 
+        // Legend group and legend name
         svg
             .selectAll('mySlices')
             .data(data_ready)
@@ -202,14 +202,15 @@ class DonutChart extends Component {
     render() {
         return <>
             <h1>Pourcentage de ventre par region : {this.state.year}</h1>
-            <select value={this.state.year} onChange={this.handleChange} style={{'margin-left': '20%'}} >
+            <select className="form-select " value={this.state.year} onChange={this.handleChange}  >
                 <option value="2021">2021</option>
                 <option value="2020">2020</option>
                  <option value="2019">2019</option>
                 <option value="2018">2018</option>
+              <option value="2017">2017</option>
             </select>
 
-            <div ref={this.chRef} ></div>
+            <div ref={this.chRef}  id="pie"></div>
         </>
     }
 

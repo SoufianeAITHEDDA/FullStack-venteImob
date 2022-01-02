@@ -54,7 +54,7 @@ const drawChart = (data,test) => {
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(d3.axisLeft(y).ticks(null, data.format))
       .attr("font-size", '20px')
-  
+
   if(test === "month"){
       svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -67,7 +67,7 @@ const drawChart = (data,test) => {
       .call(d3.axisBottom(x).tickFormat(i => data[i].year))
       .attr("font-size", '20px')
   }
-  
+
   if(test === "day"){
       svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -105,8 +105,9 @@ export const BarChart = ({ test , bars , datatest }) => {
 
   return (
     <div id="chartBars">
+
       <div id="my_datavizBars">
-        
+
       </div>
     </div>
 
