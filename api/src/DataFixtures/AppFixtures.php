@@ -23,7 +23,7 @@ class AppFixtures extends Fixture
         //all french' regions
         $regions = $this->getRegion();
         $files = [
-            'valeursfoncieres-2021-s1.csv', 'valeursfoncieres-2020.csv',
+            'valeursfoncieres-2021-s1.csv', 'valeursfoncieres-2020.txt',
             'valeursfoncieres-2019.txt', 'valeursfoncieres-2018.txt',
             'valeursfoncieres-2017.txt'
         ];
@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
         foreach ($files as $file) {
             if (($open = fopen(dirname(__FILE__) . '/data/'.$file, "r")) !== FALSE) {
                 $a = 0;
-                while (($data = fgetcsv($open, 0, "|")) !== FALSE && $a < 500000) {
+                while (($data = fgetcsv($open, 0, "|")) !== FALSE && $a < 100000) {
                     //skip the first line
                     if ($a > 1) {
                         $array[] = $data;
