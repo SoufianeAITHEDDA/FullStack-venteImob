@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 const colors = ['#0F288E', '#D4F20F', '#758E0F', '#57e188', '#FF5E00', '#F20F0F', '#00FF11', '#FF00DE', '#87d3f2', '#4ebeeb', '#35a4e8', '#188ce5', '#542ea5', '#724bc3', '#9c82d4', '#c981b2', '#b14891', '#ff6d00', '#ff810a', '#ff9831', '#ffb46a', '#ff9a91', '#ff736a', '#f95d54', '#ff4136', '#c4c4cd'];
 import { useState } from 'react';
 import { slice } from 'lodash';
+//import in case tests
+import * as d3 from 'd3'
 
 class DonutChart extends Component {
 
@@ -23,7 +25,7 @@ class DonutChart extends Component {
         //window.location.reload(false);
         let y =parseInt(event.target.value, 10)
         this.setState({ data: this.pieData(this.props, y), year:y });
-        console.log("change", y)
+        //console.log("change", y)
         this.drawChart(y)
 
     }
@@ -31,7 +33,7 @@ class DonutChart extends Component {
 
     // Chart load after component Mount
     componentDidMount() {
-        console.log("Mount ",this.state)
+        //console.log("Mount ",this.state)
         this.drawChart(2021)
 
     }
@@ -81,7 +83,7 @@ class DonutChart extends Component {
             finalData = slices
 
         }
-        console.log("pieData", this.state)
+        //console.log("pieData", this.state)
         return finalData;
     }
 
@@ -94,7 +96,7 @@ class DonutChart extends Component {
 
         d3.select("#d3-donutChart").remove();
        let data = this.pieData(this.props, y);
-        console.log(this.state.year," draww chart", data)
+        //console.log(this.state.year," draww chart", data)
         //filter by year
         //let data = this.pieData(data, this.state.year)
 

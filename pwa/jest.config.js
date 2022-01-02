@@ -9,7 +9,7 @@ module.exports = {
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': [
       './node_modules/babel-jest',
-      { configFile: './babel.jest.config.js' },
+      { configFile: './babel.jest.config.json' },
     ],
     "^.+\\.css$": "./config/jest/cssTransform.js",
   },

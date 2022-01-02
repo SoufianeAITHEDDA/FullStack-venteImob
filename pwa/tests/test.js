@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import DonutChart from './../components/ventes/pie_chart'
-import { fetch } from "./../utils/dataAccess";
+import DonutChart from '../components/ventes/pie_chart'
+import { fetch } from "../utils/dataAccess";
 
 
 let container;
