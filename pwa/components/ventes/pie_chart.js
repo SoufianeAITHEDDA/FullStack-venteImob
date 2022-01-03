@@ -3,7 +3,7 @@ const colors = ['#0F288E', '#D4F20F', '#758E0F', '#57e188', '#FF5E00', '#F20F0F'
 import { useState } from 'react';
 import { slice } from 'lodash';
 //import in case tests
-//import * as d3 from 'd3'
+import * as d3 from 'd3'
 
 class DonutChart extends Component {
 
