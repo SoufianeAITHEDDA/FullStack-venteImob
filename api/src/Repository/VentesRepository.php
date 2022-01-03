@@ -81,7 +81,7 @@ class VentesRepository extends ServiceEntityRepository
                         ->select("to_char(a.date, 'YYYY') AS year , to_char(a.date ,'MM') AS month , sum(a.nombre_ventes) as nombre_ventes")
                         ->where("a.date BETWEEN '$date_debut' AND  '$date_fin' ")
                         ->groupBy('year,month')
-                        ->orderBy('month', 'ASC')
+                        ->orderBy('year,month', 'ASC')
                         ->getQuery()
                         ->getResult();
                     break;

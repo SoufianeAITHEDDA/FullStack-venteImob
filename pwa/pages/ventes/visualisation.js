@@ -79,15 +79,17 @@ function Page ( { collection , collectionSerie, collectionbars }
       </nav>
 
       <div className="container" style={{'margin-top': '60px' , 'text-align': 'center' }} >
-        <div id ="serie">
+        <br/><br/>
+        <div id ="serie" style={{'border':'solid', 'margin-top':'20px'}}>
           <h1>Prix moyen du m² : </h1>
           <Serie ventes ={ collectionSerie["hydra:member"] } />
         </div>
-        <div id ="piechart">
+        <br/><br/>
+        <div id ="piechart" style={{'border':'solid', 'margin-top':'20px'}}>
           <DonutChart data={collection["hydra:member"]}  />
         </div>
-
-        <div id ="barchart">
+        <br/><br/>
+        <div id ="barchart" style={{'border':'solid', 'margin-top':'20px'}}>
           <div>
             <h1>Nombres de ventes par {type} : </h1>
             <select className="form-select " onChange={e => handleChangeYear(e.target.value)}  >
@@ -101,6 +103,7 @@ function Page ( { collection , collectionSerie, collectionbars }
 
           <BarChart bars={data} test={type}/>
         </div>
+        <br/><br/>
 
 
 

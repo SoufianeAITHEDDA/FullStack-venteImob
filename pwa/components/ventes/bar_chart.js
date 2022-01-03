@@ -43,7 +43,7 @@ const drawChart = (data,test) => {
     cursorX = e.pageX;
     cursorY = e.pageY;
   }
-  
+
   if(test === "day"){
     svg
   .append("g")
@@ -59,7 +59,7 @@ const drawChart = (data,test) => {
       .attr("height", d => y(0) - y(d.nombre_ventes))
       .attr("width", x.bandwidth())
       .on("mouseover", function (event, d) {
-       
+
         d3.select(".tooltipburndown").transition().duration(200).style("opacity", .9);
         d3.select(".tooltipburndown").html("Date :" + d.date.substring(0,9) +"<br/> Nombre de ventes: " +  + Number(d.nombre_ventes).toFixed(2))
             .style("left", cursorX - 70 + "px")
@@ -86,7 +86,7 @@ const drawChart = (data,test) => {
       .attr("height", d => y(0) - y(d.nombre_ventes))
       .attr("width", x.bandwidth())
       .on("mouseover", function (event, d) {
-       
+
         d3.select(".tooltipburndown").transition().duration(200).style("opacity", .9);
         d3.select(".tooltipburndown").html("mois : " + (d.month + " année: "+ d.year + "<br/> Nombre de ventes: " +  + Number(d.nombre_ventes).toFixed(2)))
             .style("background", "#AD6557")
@@ -114,7 +114,7 @@ const drawChart = (data,test) => {
       .attr("height", d => y(0) - y(d.nombre_ventes))
       .attr("width", x.bandwidth())
       .on("mouseover", function (event, d) {
-       
+
         d3.select(".tooltipburndown").transition().duration(200).style("opacity", .9);
         d3.select(".tooltipburndown").html("année: "+ d.year + "<br/> Nombre de ventes: " +  + Number(d.nombre_ventes).toFixed(2))
             .style("left", cursorX - 70 + "px")
@@ -126,7 +126,7 @@ const drawChart = (data,test) => {
         d3.select(".tooltipburndown").transition().duration(500).style("opacity", 0);
       });
   }
-  
+
 
   svg.append("g")
       .attr("transform", `translate(${margin.left}, 0)`)
@@ -140,13 +140,13 @@ const drawChart = (data,test) => {
     .attr("dy", "1em")
     .style("text-anchor", "middle")
     .text("Nombre de Vente");
-  
+
 
   if(test === "month"){
       svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(x).tickFormat(i => data[i].year + '/' + data[i].month))
-      .selectAll("text")	
+      .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.20em")
             .attr("dy", ".20em")
@@ -156,7 +156,7 @@ const drawChart = (data,test) => {
       svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(x).tickFormat(i => data[i].year))
-      .selectAll("text")	
+      .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", ".15em")
@@ -167,11 +167,11 @@ const drawChart = (data,test) => {
       svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
       .call(d3.axisBottom(x).tickFormat(i => data[i].date.substring(0,9)))
-      .selectAll("text")	
+      .selectAll("text")
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", "-.25em")
-            .attr("transform", "rotate(-90)");
+            .attr("transform", "rotate(-65)");
   }
 
   svg.node();
@@ -209,6 +209,7 @@ export const BarChart = ({ test , bars , datatest }) => {
       <div id="my_datavizBars">
 
       </div>
+      <br/><br/>
     </div>
 
 
