@@ -6,7 +6,7 @@ import { fetch } from "../../utils/dataAccess";
 import { Ventes } from "../../types/Ventes";
 import { DataS } from "../../types/DataS"
 import React from "react";
-
+//import * as d3 from 'd3'
 
 
 

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import DonutChart from '../components/ventes/pie_chart'
 import { fetch } from "../utils/dataAccess";
-
+import {BarChart} from "../components/ventes/bar_chart"
+//import Serie from "../components/ventes/Serie"
 
 let container;
 
@@ -28,7 +29,21 @@ let d= [{
   "nombreVentes": 8
 }];
 
+let dataDay = [{
+  "date":"2020-09-10T00:00:00+00:00",
+  "nombre_ventes" : 50
+}];
 
+let dataMonth = [{
+  "year": "2020",
+  "month": "10", 
+  "nombre_ventes": 2196
+}];
+
+let dataYear = [{
+  "year": "2020",
+  "nombre_ventes": 2196
+}];
 
   it('DonutChart Tests : ', () => {
 
@@ -45,3 +60,20 @@ let d= [{
     expect(svg).toBeInTheDocument();
 
     });
+
+
+    // it('Barchart Tests : ', () => {
+
+    //   act(() => {    ReactDOM.render( <BarChart bars={dataDay} test="day"/>, container);  });
+      
+    //   //test title
+    //   //const titre = container.querySelector('h1');
+    //   //expect(titre.textContent).toBe('Pourcentage de ventre par region : 2021');
+  
+  
+    //   //test if SVG exists
+    //   //test title
+    //   const svg = container.querySelector('svg');
+    //   expect(svg).toBeInTheDocument();
+  
+    //   });
